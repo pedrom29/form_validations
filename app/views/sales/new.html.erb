@@ -1,0 +1,26 @@
+<div class="container-fluid py-5">
+  <h1> Formulario </h1>
+  <%= form_with  model: @sale do |f| %>
+
+    <%= f.label :cod, "Codigo"%>
+    <%= f.number_field :cod %>
+    <br>
+    <%= f.label :detail, "Detalle"%>
+    <%= f.text_area :detail %>
+    <br>
+    <%= f.label :category, "Categoria"%>
+    <%= f.select :category, options_for_select(@categories), {prompt: 'Seleccione una categoria'} %>
+    <br>
+    <%= f.label :value, "Valor"%>
+    <%= f.number_field  :value %>
+    <br>
+    <%= f.label :discount, "Descuento"%>
+    <%= f.number_field  :discount %>
+    <br>
+    <%= f.check_box(:tax) %>
+    <%= f.label(:tax, "Exento de Iva") %>
+    
+    <br>
+    <%= f.submit "Enviar" %>
+  <% end %>
+</div>

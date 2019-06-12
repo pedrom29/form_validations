@@ -17,9 +17,10 @@
     <%= f.label :discount, "Descuento"%>
     <%= f.number_field  :discount %>
     <br>
-    <%= f.check_box(:tax) %>
     <%= f.label(:tax, "Exento de Iva") %>
-    
+    <%= f.check_box(:tax) %>
+
+
     <br>
     <%= f.submit "Enviar" %>
   <% end %>

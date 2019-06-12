@@ -6,16 +6,31 @@ class SalesController < ApplicationController
   end
 
   def create
-    @sale = Sale.new(sales_params)
-    if @sale.discount > 0
-       @sale.value = (@sale.value) - (@sale.value * @sale.discount/100)
+
+    @sale = Sale.new(post_params)
+
+    if @sale.discount >= 0
+       @discount = (@sale.value) - (@sale.value * @sale.discount/100)
+
+
     end
-    if @sale.tax == false
-        @sale.value = @sale.value * 1.19
+
+    if @sale.tax == 0
+
+        @sale.tax = 19
+
+        @sale.total = (@discount) + (@sale.tax*@discount/100)
+
     else
-        @sale.tax == 0
+        @sale.tax = 0
+        @sale.total = (@sale.value) - (@sale.value * @sale.discount/100)
+
+
+
     end
-    @sale.total = @sale.value
+
+
+
     @sale.save
     redirect_to sales_done_path
   end
@@ -25,8 +40,8 @@ class SalesController < ApplicationController
   end
 
   private
-  def sales_params
-    params.require(:sale).permit(:cod, :detail, :category, :value, :discount, :tax, :total)
+  def post_params
+    params.require(:sale).permit(:cod, :detail, :category, :value, :discount, :tax)
   end
 
 end
